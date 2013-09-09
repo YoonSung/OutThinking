@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OutThinking</string>
+    <string name="splash_title_en">OutThinking</string>
+    <string name="splash_title_kr">강제결합법</string>
+    <string name="Main_btn_intro">강제결합법이란</string>
+    <string name="Main_btn_todayword">오늘의단어</string>
+    <string name="Main_btn_note">발명노트</string>
+    <string name="Main_btn_addword">나의 단어추가</string>
+    <string name="TodaysWordDetail_btn_search">단어검색</string>
+    <string name="InventionNote_title">[생각하는 힘을 길러주는 강제결합법]</string>
+    <string name="InventionNote_one_txt">1.무엇과 무엇?</string>
+    <string name="InventionNote_two_txt">2.두 가지 주제가 가진 이미지는? 느낌이나 생각나는 것은?</string>
+    <string name="InventionNote_three_txt">3.두 가지를 결합하여 나온 발명품은?</string>
+    <string name="InventionNote_btnReset">전체삭제</string>
+    <string name="AddWord_btnAdd">자신만의 단어추가</string>
+</resources>
