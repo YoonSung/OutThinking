@@ -2,43 +2,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center" >
+    android:gravity="center"
+    android:orientation="horizontal" >
 
     <LinearLayout
+        android:id="@+id/TodayWorldDetail_word1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/diamonds256"
+        android:gravity="center"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/TodayWorldDetail_one_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/TodayWorldDetail_one_btn"
+        <LinearLayout
+            android:id="@+id/TodayWorldDetail_word1_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/TodaysWordDetail_btn_search"/>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible" >
 
+            <TextView
+                android:id="@+id/TodayWorldDetail_one_txt"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/TodayWordDtail_one_img"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_launcher" />
+
+            <Button
+                android:id="@+id/TodayWorldDetail_one_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/TodaysWordDetail_btn_search" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/TodayWorldDetail_word2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:background="@drawable/diamonds256"
+        android:gravity="center"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/TodayWorldDetail_two_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/TodayWorldDetail_two_btn"
+        <LinearLayout
+            android:id="@+id/TodayWorldDetail_word2_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/TodaysWordDetail_btn_search" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible" >
 
+            <TextView
+                android:id="@+id/TodayWorldDetail_two_txt"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/TodayWordDtail_two_img"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_launcher" />
+
+            <Button
+                android:id="@+id/TodayWorldDetail_two_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/TodaysWordDetail_btn_search" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

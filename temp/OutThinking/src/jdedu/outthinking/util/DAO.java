@@ -22,17 +22,19 @@ public class DAO {
 	public static final String HISTORY_DATE = "date";
 	public static final String HISTORY_PICKID = "pickId";
 	public static final String HISTORY_BTNID = "btnId";
+	public static final String HISTORY_IMGURL = "imgUrl";
 
 	private static final String HISTORY_CREATE = "create table if not exists "
 							  + HISTORY_TABLE + "(" 
 							  + HISTORY_ID + " integer primary key autoincrement,"
 							  + HISTORY_DATE  + " integer not null,"
 							  + HISTORY_PICKID + " integer not null,"
-							  + HISTORY_BTNID + " integer);";
+							  + HISTORY_BTNID + " integer not null,"
+							  + HISTORY_IMGURL + " text);";
 
 	// if insert failed, return -1
 	public long insertHistory(int date, int pickId, int btnId) {
-		if (date == 0 || pickId == 0) {
+		if (date == 0 || pickId == 0 || btnId == 0) {
 			new NullPointerException(LOG_ERROR);
 		}
 
@@ -43,15 +45,14 @@ public class DAO {
 		return mDB.insert(HISTORY_TABLE, null, cv);
 	}
 
-	public long updateHistory(int _id, int date, int pickId) {
-		if (date == 0 || pickId == 0) {
+	public long updateHistory(int _id, String imgUrl) {
+		if (imgUrl == null ) {
 			new NullPointerException(LOG_ERROR);
 		}
 
 		ContentValues cv = new ContentValues();
-		cv.put(HISTORY_DATE, date);
-		cv.put(HISTORY_PICKID, pickId);
-		return mDB.update(HISTORY_TABLE, cv, HISTORY_ID + " = ?", new String[] { ""+ pickId });
+		cv.put(HISTORY_IMGURL, imgUrl);
+		return mDB.update(HISTORY_TABLE, cv, HISTORY_ID + " = ?", new String[] { ""+ _id });
 	}
 	
 	public int deleteHistory (int id) {
@@ -83,12 +84,13 @@ public class DAO {
 															   HISTORY_ID,
 															   HISTORY_DATE,
 															   HISTORY_PICKID,
-															   HISTORY_BTNID},
+															   HISTORY_BTNID,
+															   HISTORY_IMGURL},
 															   HISTORY_DATE + " = ?", 
 															   new String[] {"" + date}, 
 															   null, null, null, null);
-//		if(cs != null)
-//			cs.moveToFirst();
+		if(cs != null)
+			cs.moveToFirst();
 		return cs;
 	}
 	
@@ -97,7 +99,8 @@ public class DAO {
 															   HISTORY_ID,
 															   HISTORY_DATE,
 															   HISTORY_PICKID,
-															   HISTORY_BTNID},
+															   HISTORY_BTNID,
+															   HISTORY_IMGURL},
 															   null, null, null, null,null, null);
 		if (cs != null)
 			cs.moveToFirst();

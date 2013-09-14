@@ -7,10 +7,11 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="14" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -19,15 +20,26 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Main"></activity>
-        <activity android:name="Intro"></activity>
-        <activity android:name="TodaysWord"></activity>
-        <activity android:name="TodaysWordDetail"></activity>
-        <activity android:name="InventionNote"></activity>
-        <activity android:name="AddWord"></activity>
+        <activity android:name="Main" >
+        </activity>
+        <activity android:name="Intro" >
+        </activity>
+        <activity
+            android:name="TodaysWord"
+			android:label="@string/TodaysWord_txt"            
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name="TodaysWordDetail"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name="InventionNote" >
+        </activity>
+        <activity android:name="AddWord" >
+        </activity>
     </application>
 
 </manifest>

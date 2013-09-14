@@ -1,21 +1,27 @@
 package jbedu.outthinking;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import jdedu.outthinking.util.Common;
 import jdedu.outthinking.util.DAO;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TodaysWordDetail extends Activity implements OnClickListener{
 
 	Button oneBtn, twoBtn;
 	TextView oneTxt, twoTxt;
+	ImageView oneImg, twoImg;
 	DAO db;
 	int date;
 	String word1;
@@ -35,6 +41,9 @@ public class TodaysWordDetail extends Activity implements OnClickListener{
 	    oneTxt = (TextView) findViewById(R.id.TodayWorldDetail_one_txt);
 	    twoTxt = (TextView) findViewById(R.id.TodayWorldDetail_two_txt);
 	    
+	    oneImg = (ImageView) findViewById(R.id.TodayWordDtail_one_img);
+	    twoImg = (ImageView) findViewById(R.id.TodayWordDtail_two_img);
+	    
 	    date = Common.getIntDateValue();
 	    
 	    db = new DAO(this);
@@ -43,8 +52,20 @@ public class TodaysWordDetail extends Activity implements OnClickListener{
 	    historyCursor.moveToFirst();
 	    
 	    int wordInt1 = historyCursor.getInt(2);
+	    String word1ImgUrl = historyCursor.getString(4);
+	    System.out.println("ImgUrl1 : "+word1ImgUrl);//for test
+	    if (word1ImgUrl != null)
+	    	oneImg.setImageDrawable(LoadImageFromWebOperations(word1ImgUrl));
+	    
 	    historyCursor.moveToNext();
+	    
 	    int wordInt2 = historyCursor.getInt(2);
+	    String word2ImgUrl = historyCursor.getString(4);
+	    System.out.println("ImgUrl2 : "+word2ImgUrl);//for test
+	    
+	    if (word2ImgUrl != null)
+	    	twoImg.setImageDrawable(LoadImageFromWebOperations(word2ImgUrl));
+	    
 	    historyCursor.close();
 	    
 	    Cursor cardCursor = db.selectCardByID(wordInt1);
@@ -70,4 +91,16 @@ public class TodaysWordDetail extends Activity implements OnClickListener{
 		}
 	}
 
+	private Drawable LoadImageFromWebOperations(String strPhotoUrl) 
+    {
+        try {
+        	InputStream is = (InputStream) new URL(strPhotoUrl).getContent();
+        	Drawable drawable = Drawable.createFromStream(is, "src name");
+        	return drawable;
+        }catch (Exception e) {
+        	System.out.println("       error occur      ");
+        	e.printStackTrace();
+        }
+		return null;
+    }
 }

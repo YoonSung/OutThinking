@@ -9,11 +9,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class Common {
-	Context context;
-	SharedPreferences spf;
-	SharedPreferences.Editor editor;
-	static SimpleDateFormat dataFormat;
-	
+	private Context context;
+	private SharedPreferences spf;
+	private SharedPreferences.Editor editor;
+	private static SimpleDateFormat dataFormat;
+	public static String NAVER_SEARCH_KEY = "355b8b961f07c3eaa8ff527e0e8e09ef";
 	
 	public Common(Context context) {
 		this.context = context; 

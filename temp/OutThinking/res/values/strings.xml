@@ -7,6 +7,7 @@
     <string name="Main_btn_todayword">오늘의단어</string>
     <string name="Main_btn_note">발명노트</string>
     <string name="Main_btn_addword">나의 단어추가</string>
+    <string name="TodaysWord_txt">오늘의 랜덤카드 두장을 선택해 주세요</string>
     <string name="TodaysWordDetail_btn_search">단어검색</string>
     <string name="InventionNote_title">[생각하는 힘을 길러주는 강제결합법]</string>
     <string name="InventionNote_one_txt">1.무엇과 무엇?</string>

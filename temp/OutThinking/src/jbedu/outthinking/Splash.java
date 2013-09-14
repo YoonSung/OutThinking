@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 public class Splash extends Activity {
 
@@ -56,7 +55,6 @@ public class Splash extends Activity {
 						readLine = br.readLine();
 					}
 				} catch(Exception e) {
-					Log.e("SPLASH", "error occur");
 					e.printStackTrace();
 				}
 				return null;
@@ -73,7 +71,7 @@ public class Splash extends Activity {
 			initialSet.execute(null, null, null);
 		else
 			handler.sendEmptyMessageDelayed(0, 500);
-		
+		card.close();
 	}
 
 	static class WaitingHandler extends Handler {
@@ -90,5 +88,10 @@ public class Splash extends Activity {
 			activity.finish();
 		}
 	}
-
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		db.close();
+	}
 }
