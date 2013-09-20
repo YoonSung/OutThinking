@@ -15,4 +15,5 @@
     <string name="InventionNote_three_txt">3.두 가지를 결합하여 나온 발명품은?</string>
     <string name="InventionNote_btnReset">전체삭제</string>
     <string name="AddWord_btnAdd">자신만의 단어추가</string>
+    <string name="AddWord_btnEnd">확인</string>
 </resources>

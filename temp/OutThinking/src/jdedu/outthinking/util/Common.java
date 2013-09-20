@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import jbedu.outthinking.R;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -14,6 +16,19 @@ public class Common {
 	private SharedPreferences.Editor editor;
 	private static SimpleDateFormat dataFormat;
 	public static String NAVER_SEARCH_KEY = "355b8b961f07c3eaa8ff527e0e8e09ef";
+	public static int[] drawableResources128 = new int[]{
+																							R.drawable.clover128,
+																							R.drawable.diamonds128,
+																							R.drawable.spades128,
+																							R.drawable.heart128
+																							}; 
+
+	public static int[] drawableResources256 = new int[]{
+		R.drawable.clover256,
+		R.drawable.diamonds256,
+		R.drawable.spades256,
+		R.drawable.heart256
+		};
 	
 	public Common(Context context) {
 		this.context = context; 

@@ -86,7 +86,7 @@ public class InventionNote extends Activity implements OnClickListener{
 			inputPopup(twoWordTxt2.getText().toString()+"의 이미지나 느낌", twoWordEdt2, 10);
 			break;
 		case R.id.InventionNote_three_edt :
-			inputPopup(getString(R.string.InventionNote_three_txt), twoWordEdt2, 10);
+			inputPopup(getString(R.string.InventionNote_three_txt), threeWordEdt, 10);
 			break;
 		case R.id.InventionNote_btnReset :
 			oneWordEdt1.setText("");
@@ -103,6 +103,7 @@ public class InventionNote extends Activity implements OnClickListener{
 	private void inputPopup(String title, final TextView target, int edtLine) {
 		edtText = new EditText(this);
 		edtText.setLines(edtLine);
+		edtText.setText(target.getText().toString());
 		
 		AlertDialog.Builder popUp = new AlertDialog.Builder(InventionNote.this);
 		popUp

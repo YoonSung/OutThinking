@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -39,6 +40,7 @@ public class TodaysWord extends Activity implements OnClickListener,
 	Button currentClickBtn;
 	String currentBtnWord;
 	int currentWordNumber;
+	Handler handler ;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,11 @@ public class TodaysWord extends Activity implements OnClickListener,
 		db = new DAO(TodaysWord.this);
 		db.open();
 
-		checkCardChoiceLimit();
+		if (checkCardChoiceNumber() >= 2) {
+			startActivity(new Intent(TodaysWord.this, TodaysWordDetail.class));
+			finish();
+		}
+			
 
 		btns = new Button[] { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8 };
 		btnResources = new int[] { R.id.todaysword_btn1, R.id.todaysword_btn2,
@@ -87,6 +93,7 @@ public class TodaysWord extends Activity implements OnClickListener,
 			Cursor cardCursor = db.selectCardByID(todayWordId);
 			cardCursor.moveToFirst();
 			String todayWord = cardCursor.getString(1);
+			btns[btnNumber - 1].setBackgroundResource(R.drawable.empty128);
 			btns[btnNumber - 1].setText(todayWord);
 			btns[btnNumber - 1].setClickable(false);
 
@@ -97,23 +104,15 @@ public class TodaysWord extends Activity implements OnClickListener,
 		historyCursor.close();
 	}
 
-	private void checkCardChoiceLimit() {
+	private int checkCardChoiceNumber() {
 		Cursor historyCursor = db.selectHistoryByDate(today);
-
-		if (historyCursor.getCount() >= 2) {
-			startActivity(new Intent(TodaysWord.this, TodaysWordDetail.class));
-
-			historyCursor.close();
-			finish();
-			return;
-		}
-		
+		int choiceCardNumber = historyCursor.getCount();
 		historyCursor.close();
+		return choiceCardNumber;
 	}
 
 	@Override
 	public void onClick(View v) {
-
 
 		System.out.println(today); //FOR TEST
 		Cursor cardCursor = db.selectAllCard(); 
@@ -160,12 +159,15 @@ public class TodaysWord extends Activity implements OnClickListener,
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Cursor historyCursor = db.selectHistoryByPickID(currentWordNumber);
-				historyCursor.moveToFirst();
-				int rowId = historyCursor.getInt(0);
-				historyCursor.close();
+				DAO threadDB =  new DAO(TodaysWord.this);
+				threadDB.open();
 				
-				Cursor cardCursor = db.selectCardByID(rowId);
+				Cursor threadHistoryCursor = threadDB.selectHistoryByPickID(currentWordNumber);
+				threadHistoryCursor.moveToFirst();
+				int threadRowId = threadHistoryCursor.getInt(0);
+				threadHistoryCursor.close();
+				
+				Cursor cardCursor = threadDB.selectCardByID(threadRowId);
 				cardCursor.moveToFirst();
 				String word = cardCursor.getString(1);
 				cardCursor.close();
@@ -174,8 +176,10 @@ public class TodaysWord extends Activity implements OnClickListener,
 				
 				System.out.println("link : "+link);
 				System.out.println("thumbNail : "+thumbNail);
-				long result = db.updateHistory(rowId, link);
+				long result = threadDB.updateHistory(threadRowId, link);
 				System.out.println("result = "+result);
+				
+				threadDB.close();
 			}
 		}).start();
 		
@@ -188,13 +192,32 @@ public class TodaysWord extends Activity implements OnClickListener,
 		currentClickBtn.setClickable(false);
 		
 		cardCursor.close();
-		checkCardChoiceLimit();
+		if (checkCardChoiceNumber() >=2 ) {
+			for (Button button : btns) {
+				button.setClickable(false);
+			}
+			
+			handler = new Handler(){
+				public void handleMessage(android.os.Message msg) {
+					startActivity(new Intent(TodaysWord.this, TodaysWordDetail.class));
+					finish();
+				};
+			};
+			
+			handler.sendEmptyMessageDelayed(0,200);
+		}
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
+	protected void onPause() {
+		super.onPause();
 		db.close();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		db.open();
 	}
 	
 	@Override
